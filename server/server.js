@@ -15,8 +15,11 @@ const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 const DB_NAME='personal-finance-manager'
-// Database connection
-mongoose.connect(`${process.env.DB_URL}/${DB_NAME}` || process.env.LOCAL_DB_URL, {
+const MONGO_URL = process.env.DB_URL 
+  ? `${process.env.DB_URL}/${DB_NAME}`
+  : process.env.LOCAL_DB_URL;
+
+mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

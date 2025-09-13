@@ -66,20 +66,20 @@ export const createLead = async (req, res) => {
 
     const { name, email, phone } = req.body;
 
-    const existingLead = await Lead.findOne({ email });
+    const existingLead = await Lead.findOne({
+      $or: [{ email }, { phone }]
+    });
+
     if (existingLead) {
       return res.status(400).json({
         success: false,
-        message: 'Lead with this email already exists'
+        message: existingLead.email === email
+          ? "Lead with this email already exists"
+          : "Lead with this phone number already exists"
       });
     }
 
-    const lead = new Lead({
-      name,
-      email,
-      phone,
-    });
-
+    const lead = new Lead({ name, email, phone });
     const savedLead = await lead.save();
 
     res.status(201).json({
@@ -95,6 +95,7 @@ export const createLead = async (req, res) => {
     });
   }
 };
+
 
 export const getLeadById = async (req, res) => {
   try {

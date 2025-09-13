@@ -66,7 +66,7 @@ const sampleLeads = [
 
 async function addSampleLeads() {
   try {
-    await mongoose.connect('mongodb://localhost:27017/lead-management', {
+    await mongoose.connect(process.env.DB_URL || process.env.LOCAL_DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

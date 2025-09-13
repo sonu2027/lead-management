@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // Database connection
-mongoose.connect('mongodb://localhost:27017/lead-management', {
+mongoose.connect(process.env.DB_URL || process.env.LOCAL_DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

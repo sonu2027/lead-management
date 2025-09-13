@@ -12,7 +12,12 @@ const app = express();
 const PORT = process.env.PORT;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN,
+  credentials: true,
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type,Authorization",
+}));
 app.use(express.json());
 const DB_NAME='personal-finance-manager'
 const MONGO_URL = process.env.DB_URL 

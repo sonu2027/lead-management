@@ -62,6 +62,6 @@ Make sure MongoDB is running on your system. The application will automatically 
   email: String (required, unique, valid email),
   phone: String (required, valid phone number),
   createdAt: Date,
-  updatedAt: Date
+  updatedAt: Date,
 }
 ```

@@ -64,9 +64,11 @@ const sampleLeads = [
   }
 ];
 
+const DB_NAME = 'personal-finance-manager'
+
 async function addSampleLeads() {
   try {
-    await mongoose.connect(process.env.DB_URL || process.env.LOCAL_DB_URL, {
+    await mongoose.connect(`${process.env.DB_URL}/${DB_NAME}` || process.env.LOCAL_DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

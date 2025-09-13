@@ -14,9 +14,9 @@ const PORT = process.env.PORT;
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+const DB_NAME='personal-finance-manager'
 // Database connection
-mongoose.connect(process.env.DB_URL || process.env.LOCAL_DB_URL, {
+mongoose.connect(`${process.env.DB_URL}/${DB_NAME}` || process.env.LOCAL_DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

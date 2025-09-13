@@ -1,8 +1,8 @@
-import express from "express"
-import cors from "cors"
-import mongoose from "mongoose"
-import dotenv from "dotenv"
-import leadRouter from "./routes/leads.route.js"
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import leadRouter from "./routes/leads.route.js";
 
 dotenv.config({
   path: "./.env",
@@ -19,8 +19,9 @@ app.use(cors({
   allowedHeaders: "Content-Type,Authorization",
 }));
 app.use(express.json());
-const DB_NAME='personal-finance-manager'
-const MONGO_URL = process.env.DB_URL 
+
+const DB_NAME = "personal-finance-manager";
+const MONGO_URL = process.env.DB_URL
   ? `${process.env.DB_URL}/${DB_NAME}`
   : process.env.LOCAL_DB_URL;
 
@@ -28,26 +29,28 @@ mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+  .then(() => {
+    console.log("Connected to MongoDB");
 
-// Routes
-app.use('/api/leads', leadRouter);
+    app.use("/api/leads", leadRouter);
 
-// Server status
-app.get('/api/health', (req, res) => {
-  res.json({ message: 'Server is running!' });
-});
+    app.get("/api/health", (req, res) => {
+      res.json({ message: "Server is running!" });
+    });
 
-// check server
-app.get("/", (req, res) => {
-  res.send(
-    `<h1>Server is running at http://localhost:${process.env.PORT}</h1>`
-  );
-});
+    app.get("/", (req, res) => {
+      res.send(
+        `<h1>Server is running at http://localhost:${PORT}</h1>`
+      );
+    });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(` Server is running on port ${PORT}`);
+    });
+
+  })
+  .catch(err => {
+    console.error("MongoDB connection error:", err);
+  });
 
 export default app;
